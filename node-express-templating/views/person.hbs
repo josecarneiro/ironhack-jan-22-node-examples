@@ -1,0 +1,26 @@
+<h1>Hello, my name is {{ name }}</h1>
+<p>I live in {{ city }}</p>
+<h3>I work as a {{ profession.title }} at {{ profession.company }}</h3>
+{{!-- We're going to iterate over each pet --}}
+{{#each pets}}
+
+{{!-- We can perform conditional logic using the #if handlebars block --}}
+{{#if isWellBehaved}}
+<p>{{ name }} is a well-behaved {{ species }}</p>
+{{else}}
+<p>{{ name }} is not a well-behaved {{ species }}</p>
+{{/if}}
+
+{{!-- <p>{{ name }} is {{#unless isWellBehaved}}not {{/unless}}a well-behaved {{ species }}</p> --}}
+
+{{/each}}
+
+<h4>My favorite beverages are:</h4>
+
+<ul>
+  {{#each favoriteBeverages}}
+  <li>
+    {{> beverage}}
+  </li>
+  {{/each}}
+</ul>

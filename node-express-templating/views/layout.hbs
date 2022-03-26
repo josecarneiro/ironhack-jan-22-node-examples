@@ -1,0 +1,33 @@
+{{!--
+By default, hbs will look for a layout.hbs file
+in the views directory. If it is present, it will be used
+as the common layout for every view rendered
+--}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ pageTitle }}</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      color: navy;
+    }
+  </style>
+</head>
+
+<body>
+  {{> navbar}}
+
+  {{!--
+  {{{ body }}} Tells handlebars where it should place
+  the contents of each view when using this layout
+  to render a template
+  --}}
+  {{{ body }}}
+</body>
+
+</html>
