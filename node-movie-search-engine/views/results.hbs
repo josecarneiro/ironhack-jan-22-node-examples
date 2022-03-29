@@ -1,0 +1,11 @@
+<ul>
+  {{#each movies}}
+  <li>
+    <a href="/movie/{{ imdbID }}">
+      <img src="{{ Poster }}" alt="{{ Title }}" />
+      <h3>{{ Title }}</h3>
+      <small>{{ Year }}</small>
+    </a>
+  </li>
+  {{/each}}
+</ul>
