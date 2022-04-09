@@ -45,15 +45,20 @@ app.get('/hero/:id/update', (req, res) => {
     });
 });
 
-app.post('/hero/create', (req, res) => {
+app.post('/hero/create', (req, res, next) => {
   const { name, superpower } = req.body;
   Hero.create({ name, superpower })
     .then((hero) => {
       const id = hero._id;
       res.redirect('/hero/' + id);
     })
-    .catch(() => {
+    .catch((error) => {
       console.log('There was an error creating the hero.');
+      // res.render('error');
+      // We're telling express that this request handling function
+      // is not going to respond to the user,
+      // and that a "catch all error handler" should respond instead
+      next(error);
     });
 });
 
@@ -69,7 +74,7 @@ app.post('/hero/:id/update', (req, res) => {
     });
 });
 
-app.post('/hero/:id/delete', (req, res) => {
+app.post('/hero/:id/delete', (req, res, next) => {
   const { id } = req.params;
   Hero.findByIdAndDelete(id)
     .then(() => {
@@ -77,7 +82,15 @@ app.post('/hero/:id/delete', (req, res) => {
     })
     .catch((error) => {
       console.log('Error deleting hero', error);
+      next(error);
     });
+});
+
+// Catch all error handler
+// Handle any errors coming from middleware of prior route handlers
+app.use((error, req, res, next) => {
+  console.log('There was an error handling a request', error);
+  res.render('error');
 });
 
 // Connect to mongoDB
