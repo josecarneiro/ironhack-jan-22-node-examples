@@ -7,7 +7,8 @@ const bookSchema = new mongoose.Schema(
       // Every book document must have a value for 'available'
       required: true, // Required is not a validator (it's a bit more complex)
       minlength: 3, // minimum length validator
-      maxlength: 140 // maximum length validator
+      maxlength: 140, // maximum length validator,
+      unique: true // It is not a mongoose validator (it's a mongoDB built in validator/indexer)
     },
     pages: {
       type: Number,
