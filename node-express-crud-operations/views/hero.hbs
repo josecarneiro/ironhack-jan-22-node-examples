@@ -1,0 +1,8 @@
+<h1>{{hero.name}}</h1>
+<em>{{hero.superpower}}</em>
+
+<a href="/hero/{{hero._id}}/update">Edit Hero</a>
+
+<form action="/hero/{{hero._id}}/delete" method="POST">
+  <button>Delete Hero</button>
+</form>

@@ -1,0 +1,11 @@
+<h1>Update Hero</h1>
+
+{{!-- Action for this case would be redundant --}}
+<form method="POST" action="/hero/{{hero._id}}/update">
+  <label for="hero-name-input">Hero Name</label>
+  <input id="hero-name-input" type="text" name="name" placeholder="Hero Name" value="{{hero.name}}" />
+  <label for="hero-superpower-input">Hero Superpower</label>
+  <input id="hero-superpower-input" type="text" name="superpower" placeholder="Superpower"
+    value="{{hero.superpower}}" />
+  <button>Edit Superhero</button>
+</form>

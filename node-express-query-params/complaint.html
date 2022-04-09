@@ -1,0 +1,15 @@
+<h1>Submit your complaint here:</h1>
+
+<!--
+  The form action attribute tells the browser
+  which path to submit the request too.
+  If no action is provided to the action attribution,
+  the browser will submit the request to the same path
+  that is in the url bar
+-->
+<form action="/complaint/submit" method="POST">
+  <input name="fullName" placeholder="Full Name" />
+  <input name="identity" placeholder="Secret Identity Code" />
+  <input name="message" placeholder="Your complaint..." />
+  <button>Submit Complaint</button>
+</form>
