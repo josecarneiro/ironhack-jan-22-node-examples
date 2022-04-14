@@ -10,6 +10,9 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
 app.use(serveFavicon(__dirname + '/public/favicon.ico'));
+
+// Middleware is a function that gets executed for every request
+// not meant to issue a response
 app.use(morgan('dev'));
 
 app.use(

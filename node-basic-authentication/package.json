@@ -1,0 +1,19 @@
+{
+  "name": "node-basic-authentication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js -e js,hbs,css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
+    "express": "^4.17.3",
+    "hbs": "^4.2.0",
+    "mongoose": "^6.3.0"
+  }
+}
