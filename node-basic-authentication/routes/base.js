@@ -16,8 +16,10 @@ baseRouter.get('/login', (req, res) => {
 // POST - /login - Handles login form submission
 baseRouter.post('/login', (req, res, next) => {
   const { email, password } = req.body;
+  let user;
   User.findOne({ email })
-    .then((user) => {
+    .then((doc) => {
+      user = doc;
       // If a user with this email exists, user will hold user document
       // If no user exists, user will hold null
       if (user === null) {
@@ -31,6 +33,7 @@ baseRouter.post('/login', (req, res, next) => {
     })
     .then((comparisonResult) => {
       if (comparisonResult) {
+        req.session.userId = user._id;
         res.redirect('/private');
       } else {
         throw new Error('Wrong password');
@@ -58,8 +61,9 @@ baseRouter.post('/register', (req, res, next) => {
         passwordHashAndSalt
       });
     })
-    .then(() => {
-      res.redirect('/');
+    .then((user) => {
+      req.session.userId = user._id;
+      res.redirect('/private');
     })
     .catch((error) => {
       next(error);
@@ -67,8 +71,12 @@ baseRouter.post('/register', (req, res, next) => {
 });
 
 // GET - /private - Displays private page to authenticated users only
-baseRouter.get('/private', (req, res) => {
-  res.render('private');
+baseRouter.get('/private', (req, res, next) => {
+  if (req.session.userId) {
+    res.render('private', { user: {} });
+  } else {
+    next(new Error('User is not authenticated.'));
+  }
 });
 
 // POST - /logout - Signs out user
