@@ -2,6 +2,7 @@ const express = require('express');
 const baseRouter = new express.Router();
 const User = require('./../models/user');
 const bcryptjs = require('bcryptjs');
+const routeGuard = require('./../middleware/route-guard');
 
 // GET - / - Displays home page
 baseRouter.get('/', (req, res) => {
@@ -71,14 +72,14 @@ baseRouter.post('/register', (req, res, next) => {
 });
 
 // GET - /private - Displays private page to authenticated users only
-baseRouter.get('/private', (req, res, next) => {
-  if (req.session.userId) {
-    res.render('private', { user: {} });
-  } else {
-    next(new Error('User is not authenticated.'));
-  }
+baseRouter.get('/private', routeGuard, (req, res, next) => {
+  res.render('private');
 });
 
 // POST - /logout - Signs out user
+baseRouter.post('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
 
 module.exports = baseRouter;

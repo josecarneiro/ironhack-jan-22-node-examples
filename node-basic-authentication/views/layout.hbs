@@ -9,6 +9,22 @@
 </head>
 
 <body>
+  <nav>
+    <a href="/">Home</a>
+    {{#if user}}
+    {{!-- Should only show up if user is authenticated --}}
+    <a href="/private">Private</a>
+
+    <form action="/logout" method="POST">
+      <button>Logout</button>
+    </form>
+
+    {{else}}
+    {{!-- Should only show up if no user is authenticated --}}
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    {{/if}}
+  </nav>
   {{{body}}}
 </body>
 

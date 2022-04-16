@@ -41,6 +41,11 @@ const deserializeUser = (req, res, next) => {
         // We're making the user object accessible to any request handler
         // that runs after this middleware by binding it to the req object
         req.user = user;
+        // If you set any properties in the res.locals object
+        // they are made available to the templates rendered in your application
+        // Make user object available to any template the application renders
+        // for this request
+        res.locals.user = user;
         // We tell express to move on and handle the request elsewhere
         next();
       })
@@ -56,26 +61,29 @@ const deserializeUser = (req, res, next) => {
 
 app.use(deserializeUser);
 
-app.use((req, res, next) => {
-  // console.log(req.body, req.session, req.user);
-  next();
-});
+// const middlewareA = (req, res, next) => {
+//   console.log('A');
+//   next();
+// };
 
-app.use((req, res, next) => {
-  console.log('A');
-  next();
-});
+// const middlewareB = (req, res, next) => {
+//   console.log('B');
+//   next();
+// };
 
-app.use((req, res, next) => {
-  console.log('B');
-  next();
-});
+// app.use(middlewareA);
+// app.use(middlewareB);
 
-app.use((req, res, next) => {
-  console.log('C');
-  next();
-});
+// app.use(middlewareA, middlewareB);
 
 app.use(baseRouter);
+
+// The catch all error handling function
+// gets executed whenever next() is called anywhere in the application
+// AND an error object is passed to next
+// eg. next(new Error('FOO'))
+app.use((error, req, res, next) => {
+  res.render('error');
+});
 
 module.exports = app;
